@@ -1,0 +1,41 @@
+<div class='page-header' id="header">
+    <div class="row">
+        <div class='col-sm-12'>
+            <h1> Contacts </h1>
+            <p class="lead">Here are your contacts</p>
+        </div>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='col-sm-12'>
+        <p><input type='search' class='form-control' placeholder='Search' ng-model='searchList' /></p>
+        <table class='table table-hover table-bordered'>
+            <thead>
+                <th ng-repeat='field in fields' ng-click='sort(field)'>
+                    {{ field | labelCase }}
+                    <span ng-show='sort.field == field && !sort.order' class='glyphicon glyphicon-chevron-down'></span>
+                    <span ng-show='sort.field == field && sort.order' class='glyphicon glyphicon-chevron-up'></span>
+                </th>
+                <th>
+                    Actions
+                </th>
+            </thead>
+            <tbody>
+                    <tr ng-repeat='contact in contacts._embedded.user | filter: searchList'>
+                        <td ng-repeat='field in fields'>
+                            {{ contact[id] }}
+                            {{ contact[field] }}
+                        </td>
+                        <td>
+                            <div>
+                                <button ng-click='show(contact.id)' type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Details</button>
+                                <button ng-click='delete($index, contact)' type="button" class="btn btn-danger btn-xs"> <span class="glyphicon glyphicon-remove"></span> Delete</button>
+                            </div>
+                        </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

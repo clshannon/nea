@@ -1,0 +1,25 @@
+<div class='row form-group' ng-form='{{field}}' ng-class="{ 'has-error': {{field}}.$dirty && {{field}}.$invalid }">
+    <label class='col-sm-4 control-label'> {{ field | labelCase }} <span ng-if='required'>*</span></label>
+    <div class='col-sm-8' ng-switch='type'>
+        <!--
+        ng-update: update after typing has stopped for >= 1 second
+        ng-blur: update when element loses focus
+        Updates called on ng-change and ng-blur to make sure updates are committed  even if 'back to list' button is clicked in < 1 second
+    -->
+
+
+        <div class="input-group" ng-switch-when='textarea'>
+            <textarea ng-model='record[field]' class='form-control custom-control' ng-change='update()' ng-blur='blurUpdate()' rows="3" style="resize:none"></textarea>
+        </div>
+
+        <input ng-switch-default ng-model='record[field]' class='form-control' ng-change='update()' ng-blur='blurUpdate()' />
+
+    </div>
+    <div class='col-sm-4 has-error' ng-show='{{field}}.$dirty && {{field}}.$invalid' ng-messages="this.$eval(field)['$error']">
+        <p class='control-label' ng-message='required'> {{ field | labelCase }} is required.</p>
+        <p class='control-label' ng-repeat='(k, v) in types' ng-message='{{k}}'> {{ field | labelCase }} {{v[1]}} </p>
+    </div>
+
+
+
+</div>
